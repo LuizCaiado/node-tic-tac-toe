@@ -18,8 +18,8 @@
   - Retorna o HTML da página. 
 
 ### 2. O cliente deve ser um html básico, só com a tela do jogo da velha. Você deve fazer as requisições para o Servidor via Ajax. Quando o usuário clicar em uma posição do tabuleiro, chame a rotina MarcarCelula com a posição que foi clicada. 
-• A cada 1 segundo, atualize a página chamando o método LerTabuleiro. 
-• Quando o usuário clicar em uma celular marque X para jogador 1 e O para o jogador 2. 
-• Não é necessário manter uma sessão de quem está jogando (O jogador pode jogar sozinho). Se o usuário clicar em duas posições diferentes, deixe que ele jogue pelo outro jogador. 
+- A cada 1 segundo, atualize a página chamando o método LerTabuleiro. 
+- Quando o usuário clicar em uma celular marque X para jogador 1 e O para o jogador 2. 
+- Não é necessário manter uma sessão de quem está jogando (O jogador pode jogar sozinho). Se o usuário clicar em duas posições diferentes, deixe que ele jogue pelo outro jogador. 
 ### 3. Não é permitido o uso de frameworks. 
 ### 4. Faça a hospedagem em um servidor web grátis (Bônus). 
