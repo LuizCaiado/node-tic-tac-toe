@@ -10,19 +10,19 @@
         <div id="game">
             <table>
                 <tr>
-                    <td id="0" onclick="formRequest(id)"></td>
-                    <td id="1" onclick="formRequest(id)"></td>
-                    <td id="2" onclick="formRequest(id)"></td>
+                    <td id="0" onclick="javascript:formRequest(0,0)"></td>
+                    <td id="1" onclick="formRequest(0,1)"></td>
+                    <td id="2" onclick="formRequest(0,2)"></td>
                 </tr>
                 <tr>
-                    <td id="3" onclick="formRequest(id)"></td>
-                    <td id="4" onclick="formRequest(id)"></td>
-                    <td id="5" onclick="formRequest(id)"></td>
+                    <td id="3" onclick="formRequest(1,0)"></td>
+                    <td id="4" onclick="formRequest(1,1)"></td>
+                    <td id="5" onclick="formRequest(1,2)"></td>
                 </tr>
                 <tr>
-                    <td id="6" onclick="formRequest(id)"></td>
-                    <td id="7" onclick="formRequest(id)"></td>
-                    <td id="8" onclick="formRequest(id)"></td>
+                    <td id="6" onclick="formRequest(2,0)"></td>
+                    <td id="7" onclick="formRequest(2,1)"></td>
+                    <td id="8" onclick="formRequest(2,2)"></td>
                 </tr>
             </table>
             <button id="reset" onclick="resetGame()" >Reset</button>
@@ -30,9 +30,9 @@
     </body>
 
     <script>
+
         function update() { 
-            const urlParam = new URLSearchParams(window.location.search.substring(1));
-            const room = urlParam.get("room");
+            
             xmlhttp = new XMLHttpRequest(); 
             xmlhttp.open("GET", "/game", true); 
             xmlhttp.onreadystatechange = function () { 
@@ -40,8 +40,13 @@
                     responseArray = xmlhttp.responseText.split(',');
 
                     for (i=0;i<9;i++){
+
                         if(responseArray[i] === "X" ){
-                            document.getElementById(`${i}`).value  = "X";
+                            document.getElementById(`${i}`).innerText  = "X";
+                        } else if (responseArray[i] === "O" ) {
+                            document.getElementById(`${i}`).innerText  = "O";
+                        } else {
+                            document.getElementById(`${i}`).innerText  = " ";
                         }
 
                     }
@@ -52,14 +57,14 @@
         }
         setInterval(update, 1000);
 
-        function formRequest(id) {
+        function formRequest(i,j){
             $.ajax({
 
                 type: 'GET',
-                url : `/turn?id=${id}`,
+                url : `/turn?posI=${i}&posJ=${j}`,
                 complete : function (response) {
                     if(response.status > 299){
-                        alert("ERRO");
+                        alert(response.responseText);
                     } else {
                         update();
                     }
@@ -68,7 +73,7 @@
             });
         }
 
-        function resetGame() {
+        function resetGame(){
 
             $.ajax({
 
@@ -84,6 +89,7 @@
                 }
             });
         }
+
     </script>
 
     <style>
@@ -100,10 +106,16 @@
             margin: auto;
         }
 
-        tr, td{
+        td{
+            height: 10rem;
+            width: 10rem;
             margin: 5px;
             background-color: rgb(66, 66, 66);
-            padding: 50px;
+            font-weight: bold;
+            color: lightgray;
+            font-size: 80px;
+            font-family: "Lucida Console", "Courier New", monospace;
+            text-align: center;
         }
 
         body{
@@ -127,5 +139,7 @@
             background-color:rgb(49, 11, 80);
             border: 2px solid rgb(58, 3, 95);
         }
+
     </style>
+
 </html>
